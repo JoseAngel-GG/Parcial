@@ -1,24 +1,27 @@
 #include <iostream>
 using namespace std;
 
-int main() {
+int main(){
+
     int n;
-    if (!(cin >> n) || n < 2) {
-        cout << 0;
-        return 0;
+    cin >> n;
+
+    if (n<2){
+
+        return 1;
     }
 
-    long long sum = 0;
-    long long sumSq = 0;
+    long long sum_digitos = 0;
+    long long sum_cuadrado = 0;
 
     for (int i = 0; i < n; ++i) {
         long long x;
         cin >> x;
-        sum += x;
-        sumSq += x * x;
+        sum_digitos += x;
+        sum_cuadrado += x * x;
     }
 
-    long long result = 1LL * n * sumSq - sum * sum;
+    long long result = n * sum_cuadrado - sum_digitos * sum_digitos;
     cout << result;
     return 0;
 }
