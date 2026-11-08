@@ -1,5 +1,6 @@
 #include <iostream>
 #include <array>
+#include <cmath>
 using namespace std;
 
 int main() {
@@ -7,7 +8,7 @@ int main() {
     int a, b, c;
     cin >> a >> b >> c;
 
-    array <long long, 6 > operaciones = {
+    array<long long, 6> operaciones = {
         a * a,
         a * b,
         a + a,
@@ -16,25 +17,29 @@ int main() {
         b + b
     };
 
-    int mas_prox=0;
+    long long mas_prox = operaciones[0];
+    long long menor_diferencia = abs(operaciones[0] - c);
 
-    for (int i=0; i < operaciones.size(); i++) {
+    for (size_t i = 1; i < operaciones.size(); i++) {
+        
+        long long diferencia_actual = abs(operaciones[i] - c);
 
-        if (operaciones[i] == c) {
+        if (diferencia_actual < menor_diferencia) {
+            menor_diferencia = diferencia_actual;
             mas_prox = operaciones[i];
+        } 
+
+        else if (diferencia_actual == menor_diferencia) {
+            if (operaciones[i] < mas_prox) {
+                mas_prox = operaciones[i];
+            }
+        }
+
+        if (menor_diferencia == 0) {
             break;
         }
-        if (abs (operaciones[i] - c) < abs (operaciones [i+1] - c)) {
-
-            mas_prox = operaciones[i];
-
-        } else if (abs (operaciones[i] - c) == abs (operaciones [i+1] - c)) {
-
-            if (operaciones[i] < operaciones [i+1]) mas_prox = operaciones[i];
-
-            if (operaciones[i] > operaciones [i+1]) mas_prox = operaciones[i+1];
-
-        } else mas_prox = operaciones [i+1];
     }
+
     cout << mas_prox << endl;
+    return 0;
 }
